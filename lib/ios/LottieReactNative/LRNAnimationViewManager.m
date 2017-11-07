@@ -29,6 +29,7 @@
 #endif
 
 #import <Lottie/Lottie.h>
+#import "RCTSparseArray.h"
 
 @implementation LRNAnimationViewManager
 
@@ -54,7 +55,7 @@ RCT_EXPORT_VIEW_PROPERTY(speed, CGFloat);
 
 RCT_EXPORT_METHOD(play:(nonnull NSNumber *)reactTag)
 {
-  [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
+  [self.bridge.uiManager addUIBlock:^(RCTUIManager *uiManager, RCTSparseArray *viewRegistry) {
     id view = viewRegistry[reactTag];
     if (![view isKindOfClass:[LRNContainerView class]]) {
       RCTLogError(@"Invalid view returned from registry, expecting LottieContainerView, got: %@", view);
@@ -67,7 +68,7 @@ RCT_EXPORT_METHOD(play:(nonnull NSNumber *)reactTag)
 
 RCT_EXPORT_METHOD(reset:(nonnull NSNumber *)reactTag)
 {
-  [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
+  [self.bridge.uiManager addUIBlock:^(RCTUIManager *uiManager, RCTSparseArray *viewRegistry) {
     id view = viewRegistry[reactTag];
     if (![view isKindOfClass:[LRNContainerView class]]) {
       RCTLogError(@"Invalid view returned from registry, expecting LottieContainerView, got: %@", view);
